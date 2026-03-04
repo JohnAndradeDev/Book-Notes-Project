@@ -1,0 +1,88 @@
+html,
+body {
+  height: 100vh;
+  margin: 0;
+}
+
+body {
+  /* background-image: url("../images/24.jpg"); */
+  background-color: azure;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
+footer {
+  padding: 20px;
+}
+
+.forms {
+  padding-top: 100px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.colorP {
+  background-color: azure;
+}
+
+.form-control {
+  min-width: 600px;
+  background-color: #ba72f5;
+  box-shadow: 0 0 0 0.2rem rgba(18, 68, 216, 0.816);
+}
+
+#exampleInputPassword1 {
+  min-height: 300px;
+}
+
+textarea.form-control {
+  min-height: 200px;
+}
+
+.form-control:focus {
+  border-color: #28059abf;
+  box-shadow: 0 0 0 0.2rem rgba(162, 6, 229, 0.697);
+  background-color: #ba72f5;
+}
+
+.bungee-regular {
+  font-family: "Bungee", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  color: rgb(0, 0, 0);
+}
+
+.colorB {
+  color: rgb(14, 135, 135);
+}
+
+.colorT {
+  color: rgb(0, 0, 0);
+  background-color: #ba72f5;
+}
+
+.icon {
+  height: 20px;
+}
+
+input[type="text"]:focus {
+  outline: none;
+  box-shadow: inset 0 -3px 0 0 #a683e3;
+}
+
+button.edit {
+  margin-left: 0px;
+  margin-right: 20px;
+  border: none;
+  background: none;
+}

@@ -1,0 +1,25 @@
+CREATE DATABASE book_notes
+  OWNER = postgres
+  ENCODING = 'UTF8';
+
+CREATE TABLE books (
+  id SERIAL PRIMARY KEY,
+  title VARCHAR(50),
+  date VARCHAR(10),
+  review TEXT
+);
+
+CREATE TABLE users(
+  id SERIAL PRIMARY KEY,
+  email VARCHAR(100) NOT NULL UNIQUE,
+  password VARCHAR(100)
+)
+
+ALTER TABLE books
+ADD COLUMN user_id INTEGER;
+
+ALTER TABLE books
+ADD CONSTRAINT fk_user
+FOREIGN KEY (user_id)
+REFERENCES users(id)
+ON DELETE CASCADE;

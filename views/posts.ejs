@@ -1,0 +1,59 @@
+<%- include("partials/header.ejs") %>
+
+  <main class="container">
+    <h1 class="bungee-regular text-center">Review of your books</h1>
+    <% books.forEach((book)=> { %>
+      <div class="forms">
+        <div class="col-md-6">
+          <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative colorP">
+            <div class="col p-4 d-flex flex-column position-static">
+
+              <h3 class="mb-0 bungee-regular">
+                <%= book.title %>
+              </h3>
+
+              <div class="mb-1 text-body-secondary">
+                <p class="bungee-regular">
+                  <%= book.date %>
+                </p>
+              </div>
+
+              <p class="card-text mb-auto bungee-regular" id="opinion<%=book.id %>">
+                <%= book.review %>
+              </p>
+
+              <form action="/delete" method="post">
+                <h4 class="bungee-regular">
+                  <input type="hidden" name="id" value="<%= book.id %>">
+                  <button class="btn colorB" type="submit">Delete</button>
+                </h4>
+              </form>
+
+              <form action="/update" method="post">
+                <input type="hidden" name="updateBookId" value="<%= book.id %>">
+
+                <textarea id="input<%=book.id %>" class="form-control bungee-regular colorT textA" name="updateBookOpinion" value="<%=book.opinion %>" autocomplete="off" autofocus="true" hidden="true"><%=book.opinion %></textarea>
+
+                <button id="done<%=book.id%>" class="edit" type="submit" hidden><img class="icon" src="assets/icons/check-solid.svg" alt="tick image"></button>
+              </form>
+
+              <button id="edit<%=book.id%>" class="edit" onclick="handler('<%=book.id%>')"><img class="icon" src="assets/icons/pencil-solid.svg" alt="tick image"></button>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <% }); %>
+
+  </main>
+
+  <script>
+    function handler(id) {
+      document.getElementById("opinion" + id).setAttribute("hidden", true)
+      document.getElementById("edit" + id).setAttribute("hidden", true)
+      document.getElementById("done" + id).removeAttribute("hidden")
+      document.getElementById("input" + id).removeAttribute("hidden")
+    }
+  </script>
+
+  <%- include("partials/footer.ejs") %>
