@@ -24,35 +24,44 @@ footer {
 }
 
 .forms {
-  padding-top: 100px;
-  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 2em;
 }
 
 .colorP {
-  background-color: azure;
+  background-color: #e5d9ef;
 }
 
 .form-control {
-  min-width: 600px;
-  background-color: #ba72f5;
-  box-shadow: 0 0 0 0.2rem rgba(18, 68, 216, 0.816);
+  width: 600px;
+  background-color: #e5d9ef;
+  box-shadow: 0 0 0 0.2rem rgba(22, 35, 76, 0.816);
+}
+
+@media (max-width: 575.98px) {
+  .form-control {
+    width: 250px;
+    background-color: #e5d9ef;
+    box-shadow: 0 0 0 0.2rem rgba(22, 35, 76, 0.816);
+  }
+}
+
+@media (max-width: 768px) {
+  .col-md-6 {
+    width: 100% !important;
+  }
+}
+
+.form-control:focus {
+  border-color: #1d1145bf;
+  box-shadow: 0 0 0 0.2rem rgba(85, 40, 106, 0.697);
+  background-color: #e8daf3;
 }
 
 #exampleInputPassword1 {
   min-height: 300px;
-}
-
-textarea.form-control {
-  min-height: 200px;
-}
-
-.form-control:focus {
-  border-color: #28059abf;
-  box-shadow: 0 0 0 0.2rem rgba(162, 6, 229, 0.697);
-  background-color: #ba72f5;
 }
 
 .bungee-regular {
@@ -64,11 +73,6 @@ textarea.form-control {
 
 .colorB {
   color: rgb(14, 135, 135);
-}
-
-.colorT {
-  color: rgb(0, 0, 0);
-  background-color: #ba72f5;
 }
 
 .icon {
@@ -85,4 +89,19 @@ button.edit {
   margin-right: 20px;
   border: none;
   background: none;
+}
+
+.container {
+  margin: 4em auto;
+  padding: 2em;
+  /* background-color: #d1b4e9; */
+}
+
+.btn {
+  border: 1px solid black;
+}
+
+textarea.form-control {
+  min-height: 300px;
+  max-width: 95%;
 }

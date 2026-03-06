@@ -1,18 +1,18 @@
 <%- include("partials/header.ejs") %>
   <main class="container">
-    <a class="btn btn-light btn-lg" href="/logout" role="button">Log Out</a>
+    <a class="btn btn-light btn-lg bungee-regular" href="/logout" role="button" style="background-color: #e5d9ef  ;">Log Out</a>
 
     <div class="forms">
       <form action="/new" method="post">
-        <div class="mb-3">
+        <div class="mb-4">
           <label class="form-label h2 bungee-regular">Book Name</label>
-          <input type="text" name="bookname" class="form-control bungee-regular colorT" id="exampleInputEmail1" aria-describedby="emailHelp">
+          <textarea type="text" maxlength="100" name="bookname" class="form-control bungee-regular" id="exampleInputEmail1" style="height: 3em;"></textarea>
         </div>
-        <div class="mb-3">
+        <div class="mb-4">
           <label class="form-label h2 bungee-regular">Opinion</label>
-          <textarea type="text" maxlength="300" name="opinion" class="form-control bungee-regular colorT" id="exampleInputPassword1"></textarea>
+          <textarea type="text" maxlength="300" name="opinion" class="form-control bungee-regular" id="exampleInputPassword1"></textarea>
         </div>
-        <button type="submit" class="btn btn-info bungee-regular">Send</button>
+        <button type="submit" class="btn btn-light bungee-regular" style="background-color: #e5d9ef;">Send</button>
       </form>
     </div>
   </main>
@@ -21,7 +21,7 @@
     <h1 class="bungee-regular text-center">Review of your books</h1>
     <% books.forEach((book)=> { %>
       <div class="forms">
-        <div class="col-md-6">
+        <div class="col-12 col-md-6">
           <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative colorP">
             <div class="col p-4 d-flex flex-column position-static">
 
@@ -30,7 +30,7 @@
               </h3>
 
               <div class="mb-1 text-body-secondary">
-                <p class="bungee-regular">
+                <p class="bungee-regular mt-2">
                   <%= book.date %>
                 </p>
               </div>
@@ -39,17 +39,17 @@
                 <%= book.review %>
               </p>
 
-              <form action="/delete" method="post">
+              <form action="/delete" method="post" style="display: flex;">
                 <h4 class="bungee-regular">
                   <input type="hidden" name="id" value="<%= book.id %>">
-                  <button class="btn colorB" type="submit">Delete</button>
+                  <button class="btn colorB mt-3" type="submit">Delete</button>
                 </h4>
               </form>
 
               <form action="/update" method="post">
                 <input type="hidden" name="updateBookId" value="<%= book.id %>">
 
-                <textarea id="input<%=book.id %>" class="form-control bungee-regular colorT textA" name="updateBookOpinion" value="<%=book.review %>" autocomplete="off" autofocus="true" hidden="true"><%=book.review %></textarea>
+                <textarea id="input<%=book.id %>" class="form-control bungee-regular text-area-edit" name="updateBookOpinion" value="<%=book.review %>" autocomplete="off" autofocus="true" hidden="true"><%=book.review %></textarea>
 
                 <button id="done<%=book.id%>" class="edit" type="submit" hidden><img class="icon" src="assets/icons/check-solid.svg" alt="tick image"></button>
               </form>

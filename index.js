@@ -8,7 +8,7 @@ import bcrypt from "bcrypt";
 import passport from "passport";
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 const saltRounds = 3;
 env.config();
 
@@ -16,7 +16,10 @@ app.use(
   session({
     secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 24,
+    },
   }),
 );
 
@@ -25,13 +28,12 @@ app.use(express.static("public"));
 
 app.use(passport.initialize());
 app.use(passport.session());
-
 const db = new pg.Client({
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  database: process.env.DB_NAME,
-  password: process.env.DB_PASSWORD,
-  port: process.env.DB_PORT,
+  connectionString: process.env.DATABASE_URL,
+  ssl:
+    process.env.NODE_ENV === "production"
+      ? { rejectUnauthorized: false }
+      : false,
 });
 
 db.connect();
@@ -49,48 +51,62 @@ app.get("/new", async (req, res) => {
 });
 
 app.post("/new", async (req, res) => {
-  const title = req.body.bookname;
-  const opinion = req.body.opinion;
-  const data = new Date();
-  const ano = data.getFullYear();
-  const mes = String(data.getMonth() + 1).padStart(2, "0");
-  const dia = String(data.getDate()).padStart(2, "0");
-  const date = ano + " " + mes + " " + dia;
-  const userId = req.user.id;
-  try {
-    await db.query(
-      "INSERT INTO books (title, date, review, user_id) VALUES ($1, $2, $3, $4)",
-      [title, date, opinion, userId],
-    );
-    res.render("/books");
-  } catch (error) {
-    res.redirect("/books");
+  if (req.isAuthenticated()) {
+    const title = req.body.bookname;
+    const opinion = req.body.opinion;
+    const data = new Date();
+    const ano = data.getFullYear();
+    const mes = String(data.getMonth() + 1).padStart(2, "0");
+    const dia = String(data.getDate()).padStart(2, "0");
+    const date = ano + " " + mes + " " + dia;
+    const userId = req.user.id;
+    try {
+      await db.query(
+        "INSERT INTO books (title, date, review, user_id) VALUES ($1, $2, $3, $4)",
+        [title, date, opinion, userId],
+      );
+      res.redirect("/books");
+    } catch (error) {
+      console.log(error);
+      res.redirect("/books");
+    }
+  } else {
+    res.redirect("/login");
   }
 });
 
 app.post("/update", async (req, res) => {
   const idBook = req.body.updateBookId;
   const newOpinion = req.body.updateBookOpinion;
-  try {
-    await db.query("UPDATE books SET review = $1 WHERE id = $2", [
-      newOpinion,
-      idBook,
-    ]);
-    res.redirect("/books");
-  } catch (error) {
-    console.log(error);
-    res.redirect("/books");
+
+  if (req.isAuthenticated()) {
+    try {
+      await db.query("UPDATE books SET review = $1 WHERE id = $2", [
+        newOpinion,
+        idBook,
+      ]);
+      res.redirect("/books");
+    } catch (error) {
+      console.log(error);
+      res.redirect("/books");
+    }
+  } else {
+    res.redirect("/login");
   }
 });
 
 app.post("/delete", async (req, res) => {
   const idBook = req.body.id;
-  try {
-    await db.query("DELETE FROM books WHERE id = $1", [idBook]);
-    res.redirect("/books");
-  } catch (error) {
-    console.log(error);
-    res.redirect("/books");
+  if (req.isAuthenticated()) {
+    try {
+      await db.query("DELETE FROM books WHERE id = $1", [idBook]);
+      res.redirect("/books");
+    } catch (error) {
+      console.log(error);
+      res.redirect("/books");
+    }
+  } else {
+    res.redirect("/login");
   }
 });
 
@@ -118,7 +134,6 @@ app.get("/books", async (req, res) => {
         req.user.id,
       ]);
       const books = result.rows;
-      console.log(books);
       res.render("index.ejs", { books: books });
     } catch (error) {
       res.redirect("/login");
@@ -146,7 +161,7 @@ app.post("/register", async (req, res) => {
     ]);
 
     if (checkResult.rows.length > 0) {
-      req.redirect("/login");
+      res.redirect("/login");
     } else {
       bcrypt.hash(password, saltRounds, async (err, hash) => {
         if (err) {
@@ -200,13 +215,17 @@ passport.use(
 );
 
 passport.serializeUser((user, cb) => {
-  cb(null, user);
+  cb(null, user.id);
 });
 
-passport.deserializeUser((user, cb) => {
-  cb(null, user);
+passport.deserializeUser(async (id, cb) => {
+  try {
+    const result = await db.query("SELECT * FROM users WHERE id = $1", [id]);
+    cb(null, result.rows[0]);
+  } catch (err) {
+    cb(err);
+  }
 });
-
 app.listen(port, () => {
   console.log(`Server running on port: ${port}`);
 });
