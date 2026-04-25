@@ -41,10 +41,13 @@ section {
 }
 
 .button {
+  display: inline-block;
   text-decoration: none;
   color: var(--WhiteFont);
   text-shadow: var(--CyanShadow);
   padding: 1em;
+  width: fit-content;
+  max-width: 100%;
   margin-right: 2em;
   border-radius: 10px;
   border: 2px black solid;
@@ -57,12 +60,18 @@ section {
   color: var(--CyanFont);
 }
 
+.buttonLine {
+  display: flex;
+}
+
 .contentHome {
-  max-width: 100vw;
-  max-height: 100vh;
-  padding: 6em;
-  align-items: center;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
+  padding: 1em;
+  gap: 2em;
+  width: 100%;
+  max-width: 300px;
 }
 
 .containerRegister {
