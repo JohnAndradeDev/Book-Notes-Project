@@ -1,107 +1,186 @@
-html,
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --PurpleBackground: #15061f;
+  --WhiteFont: #ffffff;
+  --CyanFont: #00fff5;
+  --CyanShadow: rgba(0, 255, 245, 0.4);
+  --PurpleDiv: #280b3d;
+}
+
 body {
-  height: 100vh;
+  background-color: var(--PurpleBackground);
+  background-image: url("https://www.transparenttextures.com/patterns/crissxcross.png");
+  overflow-x: hidden;
+}
+
+section {
+  margin: 4em 2em;
+}
+
+.fontColor {
+  font-size: 2.5rem;
+  color: var(--WhiteFont);
+  font-family: "Luckiest Guy", cursive;
+  font-weight: 400;
+  font-style: normal;
+  text-shadow: 5px 5px 25px rgb(110, 47, 146);
+}
+
+.pColor {
+  font-size: 1.5rem;
+  color: var(--WhiteFont);
+  font-family: "Luckiest Guy", cursive;
+  font-weight: 400;
+  font-style: normal;
+  padding-bottom: 1em;
+}
+
+.button {
+  text-decoration: none;
+  color: var(--WhiteFont);
+  text-shadow: var(--CyanShadow);
+  padding: 1em;
+  margin-right: 2em;
+  border-radius: 10px;
+  border: 2px black solid;
+  background-color: var(--Roxo-div);
+}
+
+.button:hover {
+  border: 2px solid rgba(254, 254, 254, 0.4);
+  box-shadow: 0 20px 60px rgba(255, 0, 110, 0.2);
+  color: var(--CyanFont);
+}
+
+.contentHome {
+  max-width: 100vw;
+  max-height: 100vh;
+  padding: 6em;
+  align-items: center;
+  justify-content: center;
+}
+
+.containerRegister {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1em;
+  gap: 2em;
+}
+
+.contentRegister {
+  background-color: var(--PurpleDiv);
+  background-image: url("https://www.transparenttextures.com/patterns/crissxcross.png");
+  border-radius: 20px;
+  width: 100%;
+  max-width: 600px;
+  align-items: center;
+  justify-content: center;
+  padding: 4em;
+}
+
+.containerBook {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1em;
+  gap: 2em;
+  margin-top: 2em;
+}
+
+.contentBook {
+  border-radius: 20px;
+  width: 100%;
+  max-width: 1000px;
+  align-items: center;
+  justify-content: center;
+  padding: 4em;
+}
+
+.textArea {
+  border: none;
+  outline: none;
+  resize: none;
+  box-shadow: none;
+  display: block;
+  min-width: 0;
+  width: 100%;
+  min-height: 180px;
+  box-sizing: border-box;
+  padding: 0.7rem 1.2rem;
+  border-radius: 12px;
+  background-color: var(--PurpleDiv);
+  color: #a8b2d1;
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+  font-size: 1em;
+  border: 1px solid var(--CyanShadow);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.textName {
+  min-height: 40px;
+}
+
+.containerReview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1em;
+  gap: 2em;
+  margin-top: 2em;
+}
+
+.contentReview {
+  background-color: var(--PurpleDiv);
+  background-image: url("https://www.transparenttextures.com/patterns/crissxcross.png");
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2em;
+  margin-top: 2em;
+  width: 100%;
+  max-width: 900px;
+  border-radius: 20px;
+  gap: 1em;
+}
+
+.contentReview form {
+  width: 100%;
+  min-width: 0;
+  padding: 1em;
+}
+
+.contentReview form {
+  padding: 0;
   margin: 0;
 }
 
-body {
-  /* background-image: url("../images/24.jpg"); */
-  background-color: azure;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-attachment: fixed;
-  display: flex;
-  flex-direction: column;
-}
-
-main {
-  flex: 1;
+.padBut {
+  margin-top: 1em;
 }
 
 footer {
-  padding: 20px;
-}
-
-.forms {
+  padding: 2rem;
+  color: #a8b2d1;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  height: 150px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2em;
-}
-
-.colorP {
-  background-color: #e5d9ef;
-}
-
-.form-control {
-  width: 600px;
-  background-color: #e5d9ef;
-  box-shadow: 0 0 0 0.2rem rgba(22, 35, 76, 0.816);
-}
-
-@media (max-width: 575.98px) {
-  .form-control {
-    width: 250px;
-    background-color: #e5d9ef;
-    box-shadow: 0 0 0 0.2rem rgba(22, 35, 76, 0.816);
-  }
-}
-
-@media (max-width: 768px) {
-  .col-md-6 {
-    width: 100% !important;
-  }
-}
-
-.form-control:focus {
-  border-color: #1d1145bf;
-  box-shadow: 0 0 0 0.2rem rgba(85, 40, 106, 0.697);
-  background-color: #e8daf3;
-}
-
-#exampleInputPassword1 {
-  min-height: 300px;
-}
-
-.bungee-regular {
-  font-family: "Bungee", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-  color: rgb(0, 0, 0);
-}
-
-.colorB {
-  color: rgb(14, 135, 135);
-}
-
-.icon {
-  height: 20px;
-}
-
-input[type="text"]:focus {
-  outline: none;
-  box-shadow: inset 0 -3px 0 0 #a683e3;
-}
-
-button.edit {
-  margin-left: 0px;
-  margin-right: 20px;
-  border: none;
-  background: none;
-}
-
-.container {
-  margin: 4em auto;
-  padding: 2em;
-  /* background-color: #d1b4e9; */
-}
-
-.btn {
-  border: 1px solid black;
-}
-
-textarea.form-control {
-  min-height: 300px;
-  max-width: 95%;
 }

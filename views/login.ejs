@@ -1,21 +1,23 @@
 <%- include('partials/header') %>
 
-  <div class="container">
-    <h1>Login</h1>
-    <div class="container forms">
-      <form action="/login" method="POST">
-        <div class="mb-4">
-          <label for="email" class="mb-2 bungee-regular">Email</label>
-          <input type="email" class="form-control" name="username">
-        </div>
-        <div class="mb-4">
-          <label for="password" class="mb-2 bungee-regular">Password</label>
-          <input type="password" class="form-control" name="password" autocomplete="off">
-        </div>
-        <button type="submit" class="btn btn-light bungee-regular">Login</button>
-      </form>
+  <section>
+    <div class="containerRegister">
+      <h1 class="fontColor">Login</h1>
+      <div class="contentRegister">
+        <form action="/login" method="POST">
+          <div class="mb-4">
+            <label for="email" class="pColor">Email</label>
+            <input type="email" class="form-control" name="username">
+          </div>
+          <div class="mb-4">
+            <label for="password" class="pColor">Password</label>
+            <input type="password" class="form-control" name="password" autocomplete="off">
+          </div>
+          <button type="submit" class="button">Login</button>
+        </form>
 
+      </div>
     </div>
-  </div>
+  </section>
 
   <%- include('partials/footer') %>

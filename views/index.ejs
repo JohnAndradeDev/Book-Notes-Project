@@ -1,68 +1,52 @@
 <%- include("partials/header.ejs") %>
-  <main class="container">
-    <a class="btn btn-light btn-lg bungee-regular" href="/logout" role="button" style="background-color: #e5d9ef  ;">Log Out</a>
+  <section>
+    <a class="button" href="/logout" role="button">Log Out</a>
 
-    <div class="forms">
-      <form action="/new" method="post">
-        <div class="mb-4">
-          <label class="form-label h2 bungee-regular">Book Name</label>
-          <textarea type="text" maxlength="100" name="bookname" class="form-control bungee-regular" id="exampleInputEmail1" style="height: 3em;"></textarea>
-        </div>
-        <div class="mb-4">
-          <label class="form-label h2 bungee-regular">Opinion</label>
-          <textarea type="text" maxlength="300" name="opinion" class="form-control bungee-regular" id="exampleInputPassword1"></textarea>
-        </div>
-        <button type="submit" class="btn btn-light bungee-regular" style="background-color: #e5d9ef;">Send</button>
-      </form>
-    </div>
-  </main>
-
-  <main class="container">
-    <h1 class="bungee-regular text-center">Review of your books</h1>
-    <% books.forEach((book)=> { %>
-      <div class="forms">
-        <div class="col-12 col-md-6">
-          <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative colorP">
-            <div class="col p-4 d-flex flex-column position-static">
-
-              <h3 class="mb-0 bungee-regular">
-                <%= book.title %>
-              </h3>
-
-              <div class="mb-1 text-body-secondary">
-                <p class="bungee-regular mt-2">
-                  <%= book.date %>
-                </p>
-              </div>
-
-              <p class="card-text mb-auto bungee-regular" id="opinion<%=book.id %>">
-                <%= book.review %>
-              </p>
-
-              <form action="/delete" method="post" style="display: flex;">
-                <h4 class="bungee-regular">
-                  <input type="hidden" name="id" value="<%= book.id %>">
-                  <button class="btn colorB mt-3" type="submit">Delete</button>
-                </h4>
-              </form>
-
-              <form action="/update" method="post">
-                <input type="hidden" name="updateBookId" value="<%= book.id %>">
-
-                <textarea id="input<%=book.id %>" class="form-control bungee-regular text-area-edit" name="updateBookOpinion" value="<%=book.review %>" autocomplete="off" autofocus="true" hidden="true"><%=book.review %></textarea>
-
-                <button id="done<%=book.id%>" class="edit" type="submit" hidden><img class="icon" src="assets/icons/check-solid.svg" alt="tick image"></button>
-              </form>
-
-              <button id="edit<%=book.id%>" class="edit" onclick="handler('<%=book.id%>')"><img class="icon" src="assets/icons/pencil-solid.svg" alt="tick image"></button>
-
-            </div>
+    <div class="containerBook">
+      <div class="contentBook">
+        <form action="/new" method="post">
+          <div class="mb-4">
+            <label class="pColor">Book Name</label>
+            <textarea type="text" maxlength="100" name="bookname" class="textArea textName pColor" id="exampleInputEmail1" style="height: 3em;"></textarea>
           </div>
-        </div>
+          <div class="mb-4">
+            <label class="pColor">Opinion</label>
+            <textarea type="text" maxlength="300" name="opinion" class="textArea" id="exampleInputPassword1"></textarea>
+          </div>
+          <button type="submit" class="button">Send</button>
+        </form>
       </div>
-      <% }); %>
+    </div>
 
-  </main>
+    <div class="containerReview">
+      <h1 class="fontColor">Review of your books</h1>
+      <% books.forEach((book)=> { %>
+        <div class="contentReview">
+          <form action="/delete" method="post">
+            <input type="hidden" name="id" value="<%= book.id %>">
+            <button class="button" type="submit">Delete</button>
+          </form>
+          <h3 class="fontColor">
+            <%= book.title %>
+          </h3>
+          <p class="pColor">
+            <%= book.date %>
+          </p>
+          <p class="pColor" id="opinion<%=book.id %>">
+            <%= book.review %>
+          </p>
+
+          <form action="/update" method="post">
+            <input type="hidden" name="updateBookId" value="<%= book.id %>">
+            <textarea id="input<%=book.id %>" class="textArea" name="updateBookOpinion" value="<%=book.review %>" autocomplete="off" autofocus="true" hidden="true"><%=book.review %></textarea>
+            <button id="done<%=book.id%>" class="button padBut" type="submit" hidden>ok</button>
+          </form>
+          <button id="edit<%=book.id%>" class="button" onclick="handler('<%=book.id%>')">Update</button>
+        </div>
+        <% }); %>
+    </div>
+
+  </section>
 
   <script>
     function handler(id) {
